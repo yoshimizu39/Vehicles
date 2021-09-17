@@ -1,0 +1,34 @@
+﻿@model Vehicles.API.Data.Entities.DocumentType
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<h1>Añadir Nuevo</h1>
+
+<h4>Tipo de Documento</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <partial name="_DocumentTypr" />
+
+            <div class="form-group">
+                <button type="submit" value="Create" class="btn btn-success"><i class="glyphicon glyphicon-floppy-disk"></i> Nuevo </button>
+                <a asp-action="Index" class="btn btn-secondary"><i class="glyphicon glyphicon-fast-backward"></i> Regresar </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+

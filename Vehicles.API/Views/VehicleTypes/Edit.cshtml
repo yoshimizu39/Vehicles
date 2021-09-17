@@ -1,0 +1,32 @@
+﻿@model Vehicles.API.Data.Entities.VehicleType
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<h1>Editar</h1>
+
+<h4>Tipo de Vehículo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <partial name="_VehicleType" />
+
+            <div class="form-group">
+                <button type="submit" value="Edit" class="btn btn-success"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar </button>
+                <a asp-action="Index" class="btn btn-secondary"><i class="glyphicon glyphicon-fast-backward"></i> Regresar </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
