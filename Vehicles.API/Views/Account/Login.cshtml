@@ -1,0 +1,49 @@
+﻿@model Vehicles.API.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<h1>Inicio de Sesión</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+
+            <div class="form-group">
+                <label asp-for="UserName"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-warning"></span>
+            </div>
+            <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-warning"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="form-check">
+                    <label asp-for="Rememberme" type="checkbox" class="form-check-inline"></label>
+                    <input asp-for="Rememberme" class="form-check-input" />
+                </div>
+                <span asp-validation-for="Rememberme" class="text-warning"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" value="Iniciar Sesion" class="btn btn-primary"><i class="glyphicon glyphicon-log-in"></i> Iniciar Sesión</button>
+                <a asp-action="Register" class="btn btn-secondary"><i class="glyphicon glyphicon-user"></i> Registra Nuevo Usuario</a>
+                <a asp-action="RecoverPassword" class="btn btn-link"> Olvidate tu contraseña?</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
