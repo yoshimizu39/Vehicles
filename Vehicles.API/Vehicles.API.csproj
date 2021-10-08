@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Vehicles.Common\Vehicles.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\users\" />
+  </ItemGroup>
+
 </Project>

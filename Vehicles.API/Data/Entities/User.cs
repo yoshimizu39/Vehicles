@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Vehicles.Common.Enums;
 
@@ -27,12 +27,12 @@ namespace Vehicles.API.Data.Entities
         public string Address { get; set; }
 
         [Display(Name = "Foto")]
-        public Guid ImageId { get; set; }
+        public string ImageId { get; set; }
 
         [Display(Name = "Foto")]
-        public string ImageFullPath => ImageId == Guid.Empty
-        ? $"https://vehiclessalazar.azurewebsites.net/images/NoImage.png"
-        : $"https://vehiclessalazar.blob.core.windows.net/users/{ImageId}";
+        public string ImageFullPath => string.IsNullOrEmpty(ImageId)
+        ? $"https://localhost:44340/images/noimage.png"
+        : $"https://localhost:44340/images/users/f92b2af8-bad0-48a6-b55d-ad48270aff25.jpg";
 
         [Display(Name = "Tipo de Usuario")]
         public UserType UserType { get; set; }
@@ -43,5 +43,12 @@ namespace Vehicles.API.Data.Entities
         [Display(Name = "Tipo de Documento")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public DocumentType DocumentType { get; set; }
+
+        public ICollection<Vehicle> Vehicles { get; set; }
+
+        [Display(Name = "# Vehículos")]
+        public int VehiclesCount => Vehicles == null ? 0 : Vehicles.Count;
+
+        //public ICollection<History> Histories { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vehicles.API.Data.Entities;
 using Vehicles.API.Helpers;
 using Vehicles.API.Models;
 
@@ -32,7 +33,8 @@ namespace Vehicles.API.Controllers
         {
             if (ModelState.IsValid)
             {
-                Microsoft.AspNetCore.Identity.SignInResult result = await _userHelper.LoginAsync(model);
+                //Microsoft.AspNetCore.Identity.SignInResult result = await _userHelper.LoginAsync(model);
+                var result = await _userHelper.LoginAsync(model);
 
                 if (result.Succeeded)
                 {
