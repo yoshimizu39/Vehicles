@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Threading.Tasks;
+using Vehicles.API.Data.Entities;
 
 namespace Vehicles.API.Helpers
 {
@@ -14,6 +15,6 @@ namespace Vehicles.API.Helpers
 
         Task<Guid> UploadBlobAsync(string image, string containerName); //string image pasa una ruta
 
-        Task DeleteBlobAsync(Guid id, string containerName); //Guid id permite pasar el id del blob
+        //Task DeleteBlobAsync(string id); //Guid id permite pasar el id del blob
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Vehicles.Common.Enums;
@@ -32,7 +33,7 @@ namespace Vehicles.API.Data.Entities
         [Display(Name = "Foto")]
         public string ImageFullPath => string.IsNullOrEmpty(ImageId)
         ? $"https://localhost:44340/images/noimage.png"
-        : $"https://localhost:44340/images/users/f92b2af8-bad0-48a6-b55d-ad48270aff25.jpg";
+        : $"https://localhost:44340/images/users/{ImageId}";
 
         [Display(Name = "Tipo de Usuario")]
         public UserType UserType { get; set; }

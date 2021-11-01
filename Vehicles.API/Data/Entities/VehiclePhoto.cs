@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Vehicles.API.Data.Entities
 {
@@ -8,12 +7,12 @@ namespace Vehicles.API.Data.Entities
         public int Id { get; set; }
 
         [Display(Name = "Foto")]
-        public Guid ImageId { get; set; }
+        public string ImageId { get; set; }
 
         [Display(Name = "Foto")]
-        public string ImageFullPath => ImageId == Guid.Empty
-            ? $"https://localhost:44340/images/NoImage.png"
-            : $"https://vehicleszuluprep.blob.core.windows.net/vehicles/{ImageId}";
+        public string ImageFullPath => string.IsNullOrEmpty(ImageId)
+        ? $"https://localhost:44340/images/noimage.png"
+        : $"https://localhost:44340/images/vehiclephotos/{ImageId}";
 
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public Vehicle Vehicle { get; set; }

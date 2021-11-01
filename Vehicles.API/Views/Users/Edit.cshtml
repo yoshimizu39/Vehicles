@@ -1,0 +1,44 @@
+﻿@model Vehicles.API.Models.UserViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<h2>Editar</h2>
+<h4>Usuario</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-10">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImageId" />
+            <input type="hidden" asp-for="Email" />
+
+            <partial name="_User" />
+
+            <div class="form-group">
+                <button type="submit" value="Edit" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"> Editar</i></button>
+                <a asp-action="Index" class="btn btn-secondary"><i class="glyphicon glyphicon-fast-backward"> Regresar</i></a>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2">
+        @if (string.IsNullOrEmpty(Model.ImageId))
+        {
+            <img src="@Url.Content(Model.ImageFullPath)" style="width: 200px; height: 200px; border-radius:200px;" />
+        }
+        else
+        {
+            <img src="@Url.Content(Model.ImageId)" style="width: 200px; height: 200px; border-radius:200px;" />
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

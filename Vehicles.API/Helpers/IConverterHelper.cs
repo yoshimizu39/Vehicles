@@ -9,5 +9,9 @@ namespace Vehicles.API.Helpers
         Task<User> ToUserAsync(UserViewModel model, string imageId, bool isNew);
 
         UserViewModel ToUserViewModel(User user);
+
+        Task<Vehicle> ToVehicleAsync(VehicleViewModel model, bool isNew);
+
+        VehicleViewModel ToVehicleViewModel(Vehicle vehicle);
     }
 }

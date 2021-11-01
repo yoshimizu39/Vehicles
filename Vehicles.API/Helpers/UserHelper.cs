@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Grpc.Core;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using Vehicles.API.Data;
 using Vehicles.API.Data.Entities;
@@ -44,10 +48,39 @@ namespace Vehicles.API.Helpers
             }
         }
 
+        public async Task<IdentityResult> DeleteUserAsync(User user)
+        {
+            string path = user.ImageId;
+            FileInfo file = new FileInfo(path);
+
+            if (file.Exists)
+            {
+                file.Delete();
+            }
+
+            return await _userManager.DeleteAsync(user);
+        }
+
         public async Task<User> GetUserAsync(string email)
         {
             return await _context.Users.Include(u => u.DocumentType)
-                           .FirstOrDefaultAsync(u => u.Email == email);
+                                       .Include(x => x.Vehicles)
+                                       .ThenInclude(v => v.VehiclePhotos)
+                                       .Include(x => x.Vehicles)
+                                       .ThenInclude(v => v.Histories)
+                                       .ThenInclude(v => v.Details)
+                                       .FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+        public async Task<User> GetUserAsync(Guid id)
+        {
+            return await _context.Users.Include(x => x.DocumentType)
+                                       .Include(x => x.Vehicles)
+                                       .ThenInclude(v => v.VehiclePhotos)
+                                       .Include(x => x.Vehicles)
+                                       .ThenInclude(v => v.Histories)
+                                       .ThenInclude(v => v.Details)
+                                       .FirstOrDefaultAsync(x => x.Id == id.ToString());
         }
 
         public async Task<bool> IsUserToRoleAsync(User user, string roleName)
@@ -63,6 +96,20 @@ namespace Vehicles.API.Helpers
         public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(User user)
+        {
+            User usuario = await GetUserAsync(user.Email);
+            usuario.LastName = user.LastName;
+            usuario.FirstName = user.FirstName;
+            usuario.DocumentType = user.DocumentType;
+            usuario.Document = user.Document;
+            usuario.Address = user.Address;
+            usuario.ImageId = user.ImageId;
+            usuario.PhoneNumber = user.PhoneNumber;
+
+            return await _userManager.UpdateAsync(usuario);
         }
     }
 }

@@ -1,0 +1,37 @@
+﻿@model Vehicles.API.Models.VehicleViewModel
+
+@{
+    ViewData["Title"] = "AddVehicle";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<h2>Crear</h2>
+<h4>Vehículo</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="AddVehicle" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserId" />
+
+            <partial name="_Vehicle" />
+
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" type="file" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <div class="form-control">
+                <button type="submit" value="AddVehicle" class="btn btn-success"><i class="glyphicon glyphicon-floppy-disk">Crear Vehículo</i></button>
+                <a asp-action="Details" asp-route-id="@Model.UserId" class="btn btn-secondary"><i class="glyphicon glyphicon-fast-backward">Regresar</i></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

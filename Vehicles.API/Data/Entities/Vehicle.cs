@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace Vehicles.API.Data.Entities
@@ -8,6 +9,10 @@ namespace Vehicles.API.Data.Entities
     public class Vehicle
     {
         public int Id { get; set; }
+
+        public ICollection<VehiclePhoto> VehiclePhotos { get; set; }
+
+        public ICollection<History> Histories { get; set; }
 
         [Display(Name = "Modelo")]
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
@@ -57,8 +62,6 @@ namespace Vehicles.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         public Brand Brand { get; set; }
 
-        public ICollection<VehiclePhoto> VehiclePhotos { get; set; }
 
-        public ICollection<History> Histories { get; set; }
     }
 }

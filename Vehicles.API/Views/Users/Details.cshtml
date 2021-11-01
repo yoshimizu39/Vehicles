@@ -1,0 +1,174 @@
+﻿@model Vehicles.API.Data.Entities.User
+@{
+    ViewData["Title"] = "Details";
+}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+<h2>Vehículos</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-8">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.FullName)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.FullName)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.DocumentType.Description)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DocumentType.Description)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Document)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Document)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Address)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Address)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            @if (string.IsNullOrEmpty(Model.ImageId))
+            {
+                <img src="@Url.Content(Model.ImageFullPath)" style="width: 200px; height: 200px; border-radius:200px;" />
+            }
+            else
+            {
+                <img src="@Url.Content(Model.ImageId)" style="width: 200px; height: 200px; border-radius:200px;" />
+            }
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="AddVehicle" asp-route-id="@Model.Id" class="btn btn-primary"><i class="glyphicon glyphicon-plus">AddVehicle</i></a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil">EditarUsuario</i></a>
+    <a asp-action="Index" class="btn btn-secondary"><i class="glyphicon glyphicon-fast-backward">Regresar</i></a>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Vehículos</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover tabel-responsive table-striped" id="MyTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Vehicles.FirstOrDefault().Plaque)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Vehicles.FirstOrDefault().VehicleType.Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Vehicles.FirstOrDefault().Brand.Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Vehicles.FirstOrDefault().Line)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Vehicles.FirstOrDefault().Model)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Vehicles.FirstOrDefault().HistoriesCount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Vehicles.FirstOrDefault().VehiclePhotosCount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(Model => Model.Vehicles.FirstOrDefault().ImageFullPath)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Vehicles)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelitem => item.Plaque)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelitem => item.VehicleType.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelitem => item.Brand.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelitem => item.Line)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelitem => item.Model)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelitem => item.HistoriesCount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelitem => item.VehiclePhotosCount)
+                                </td>
+                                <td>
+                                    <img src="@Url.Content(item.ImageFullPath)" style="width: 200px; height: 200px; border-radius:200px;" />
+                                </td>
+                                <td>
+                                    <a asp-action="EditVehicle" asp-route-id="@item.Id" class="btn btn-warning"><i class="glyphicon glyphicon-pencil">Editar</i></a>
+                                    <a asp-action="DetailsVehicle" asp-route-id="@item.Id" class="btn btn-info"><i class="glyphicon glyphicon-align-justify">Historias</i></a>
+                                    <button data-id="@item.Id" class="btn btn-danger deleteItem" data-toggle="modal" data-target="#deleteDialog">Borrar</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<partial name="_DeleteDialog" />
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="/js/deleteDialog.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#MyTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                },
+                "aLengthMenu": [
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "Todos"]
+                ]
+            });
+            // Delete item
+            sc_deleteDialog.openModal('deleteItem', true, 'btnYesDelete', '/Users/DeleteVehicle/', false);
+        });
+    </script>
+}

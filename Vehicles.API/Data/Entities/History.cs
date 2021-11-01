@@ -40,9 +40,9 @@ namespace Vehicles.API.Data.Entities
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
         public Vehicle Vehicle { get; set; }
 
-        //[Display(Name = "Mecánico")]
-        //[Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        //public User User { get; set; }
+        [Display(Name = "Mecánico")]
+        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public User User { get; set; }
 
         public ICollection<Detail> Details { get; set; }
 

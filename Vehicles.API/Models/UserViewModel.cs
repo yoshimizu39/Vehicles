@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Vehicles.API.Data.Entities;
 using Vehicles.Common.Enums;
 
 namespace Vehicles.API.Models
@@ -56,8 +57,8 @@ namespace Vehicles.API.Models
         public IEnumerable<SelectListItem> DocumentTypes { get; set; }
 
         [Display(Name = "Foto")]
-        public string ImageFullPath => string.IsNullOrEmpty(ImageId)
-        ? $"https://localhost:44340/images/noimage.png"
+        public string ImageFullPath => ImageId == null
+        ? "https://localhost:44340/images/noimage.png"
         : $"https://localhost:44340/images/users/{ImageId}";
 
     }

@@ -1,19 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Grpc.Core;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+using Vehicles.API.Data.Entities;
 
 namespace Vehicles.API.Helpers
 {
     public class ImageHelper : IImageHelper
     {
-        public Task DeleteBlobAsync(Guid id, string containerName)
-        {
-            throw new NotImplementedException();
-        }
+        //private readonly DbContext _context;
 
+        //public ImageHelper(DbContext context)
+        //{
+        //    _context = context;
+        //}
         public Task<Guid> UploadBlobAsync(string image, string containerName)
         {
             throw new NotImplementedException();
@@ -54,5 +56,32 @@ namespace Vehicles.API.Helpers
 
             return $"~/images/{folder}/{file}";
         }
+
+        //public async Task DeleteBlobAsync(string id)
+        //{
+        //    var userImage = await _context.user
+        //    var path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\", user.ImageId);
+
+        //    if (System.IO.File.Exists(path))
+        //    {
+        //        System.IO.File.Delete(path);
+        //    }
+
+        //    return path;
+
+        //}
+
+        //public string DeleteBlobAsync(User user)
+        //{
+        //    var path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot\\", user.ImageId);
+
+        //    if (System.IO.File.Exists(path))
+        //    {
+        //        System.IO.File.Delete(path);
+        //    }
+
+        //    return path;
+             
+        //}
     }
 }
